@@ -1,4 +1,4 @@
-# OrderSheetConverterDesktop
+# OrderSheetConverter
 
 Windows desktop app for converting the raw Excel workbook of orders to a more friendly one
 
