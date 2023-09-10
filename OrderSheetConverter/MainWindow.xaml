@@ -1,0 +1,104 @@
+﻿<Window x:Class="Studio.DreamRoom.OrderSheetConverter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Studio.DreamRoom.OrderSheetConverter"
+        mc:Ignorable="d"
+        Title="订单表格转换器" Height="650" Width="800">
+    <Window.Resources>
+        <HierarchicalDataTemplate x:Key="ProductTemplate" ItemsSource="{Binding Path=Value}">
+            <TextBlock Text="{Binding Path=Key}"></TextBlock>
+            <HierarchicalDataTemplate.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Path=Value}">
+                    <TextBlock Text="{Binding Path=Key}"></TextBlock>
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <DataTemplate DataType="{x:Type local:Order}">
+                            <TextBlock Text="{Binding Path=DisplayName}"></TextBlock>
+                        </DataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+                </HierarchicalDataTemplate>
+            </HierarchicalDataTemplate.ItemTemplate>
+        </HierarchicalDataTemplate>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <StackPanel AllowDrop="True" Drop="DropTargetPanel_Drop" DragEnter="DropTargetPanel_DragEnter" DragLeave="DropTargetPanel_DragLeave" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image x:Name="ExcelLogo" Width="139.5" Height="150" Source="Resources/Excel_Logo.png" Stretch="Uniform" PreviewMouseUp="ExcelLogo_Click"></Image>
+                <TextBlock Margin="0,30,0,0">拖拽 Excel 文件至图标处松开</TextBlock>
+            </StackPanel>
+            <TextBlock VerticalAlignment="Bottom" Margin="30,0,0,30" PreviewMouseUp="AboutText_Click">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Opacity" Value="0.2" />
+                        <Setter Property="Cursor" Value="Arrow" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="1" />
+                                <Setter Property="Cursor" Value="Hand" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+                Crafted by Dream Room Studio, with ❤
+            </TextBlock>
+        </Grid>
+        <Rectangle Grid.Column="1" Width="1" VerticalAlignment="Stretch" Margin="0,30,0,30" Stroke="Black" Opacity="0.2" />
+        <Grid x:Name="MainView" Grid.Column="2" IsEnabled="False">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="30,30,30,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0">文件路径</TextBlock>
+                <TextBlock Grid.Row="0" Grid.Column="1" x:Name="FilePathText" TextWrapping="Wrap" PreviewMouseUp="FilePathText_Click">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="Black" />
+                            <Setter Property="Cursor" Value="Arrow" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="Blue" />
+                                    <Setter Property="Cursor" Value="Hand" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TextBlock Grid.Row="1" Margin="0,6,0,0">产品数量</TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="1" Margin="0,6,0,0" x:Name="ProductsCountText"></TextBlock>
+                <TextBlock Grid.Row="2" Margin="0,6,0,0">买家数量</TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,6,0,0" x:Name="BuyersCountText"></TextBlock>
+                <TextBlock Grid.Row="3" Margin="0,6,0,0">原始订单数量</TextBlock>
+                <TextBlock Grid.Row="3" Grid.Column="1" Margin="0,6,0,0" x:Name="OriginalOrdersCountText"></TextBlock>
+                <TextBlock Grid.Row="4" Margin="0,6,20,0">合并后订单数量</TextBlock>
+                <TextBlock Grid.Row="4" Grid.Column="1" Margin="0,6,0,0" x:Name="OrdersCountText"></TextBlock>
+            </Grid>
+            <TreeView Grid.Row="1" Margin="30,30,30,0" HorizontalAlignment="Stretch" BorderThickness="0">
+                <TreeViewItem x:Name="BuyersTree" Header="买家" IsExpanded="True">
+                </TreeViewItem>
+                <TreeViewItem x:Name="ProductsTree" Header="产品" IsExpanded="True" ItemTemplate="{StaticResource ProductTemplate}">
+                </TreeViewItem>
+            </TreeView>
+            <Button Grid.Row="2" Height="40" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="30,30,30,30" Click="ExportButton_Click">导出</Button>
+        </Grid>
+    </Grid>
+</Window>
