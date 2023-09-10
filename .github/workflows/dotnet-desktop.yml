@@ -39,3 +39,7 @@ jobs:
     # Publish the application
     - name: Publish the application
       run: dotnet publish $env:Solution_Name /p:PublishProfile=.\OrderSheetConverter\Properties\PublishProfiles\FolderProfile.pubxml
+
+    # Compress the release folder
+    - name: Compress release folder
+      run: Compress-Archive -Path .\OrderSheetConverter\bin\Release\net6.0-windows\OrderSheetConverter .\OrderSheetConverter\bin\OrderSheetConverter.zip
