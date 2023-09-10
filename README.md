@@ -1,3 +1,4 @@
+![](https://github.com/heartace/OrderSheetConverter/actions/workflows/dotnet-desktop.yml/badge.svg)
 # OrderSheetConverter
 
 Windows desktop app for converting the raw Excel workbook of orders to a more friendly one.
