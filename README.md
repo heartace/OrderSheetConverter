@@ -1,5 +1,5 @@
 ![](https://github.com/heartace/OrderSheetConverter/actions/workflows/dotnet-desktop.yml/badge.svg)
-![](https://img.shields.io/github/v/release/heartace/OrderSheetConverter.svg)
+[![](https://img.shields.io/github/v/release/heartace/OrderSheetConverter.svg)](https://github.com/heartace/OrderSheetConverter/releases/latest)
 
 # OrderSheetConverter
 
