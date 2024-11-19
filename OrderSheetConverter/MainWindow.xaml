@@ -63,13 +63,20 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0">文件路径</TextBlock>
-                <TextBlock Grid.Row="0" Grid.Column="1" x:Name="FilePathText" TextWrapping="Wrap" PreviewMouseUp="FilePathText_Click">
+                <TextBlock Grid.Row="0" Margin="0,6,0,0">首列插入买家</TextBlock>
+                <ComboBox Grid.Row="0" Grid.Column="1" x:Name="InsertedBuyerPicker" Margin="0,6,0,0" Width="200" SelectedIndex="0" HorizontalAlignment="Left">
+                    <ComboBoxItem Content="无" />
+                    <ComboBoxItem Content="CZ" />
+                    <ComboBoxItem Content="萌萌" />
+                </ComboBox>
+                <TextBlock Grid.Row="1">文件路径</TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="1" x:Name="FilePathText" TextWrapping="Wrap" PreviewMouseUp="FilePathText_Click">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
                             <Setter Property="Foreground" Value="Black" />
@@ -83,14 +90,14 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-                <TextBlock Grid.Row="1" Margin="0,6,0,0">产品数量</TextBlock>
-                <TextBlock Grid.Row="1" Grid.Column="1" Margin="0,6,0,0" x:Name="ProductsCountText"></TextBlock>
-                <TextBlock Grid.Row="2" Margin="0,6,0,0">买家数量</TextBlock>
-                <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,6,0,0" x:Name="BuyersCountText"></TextBlock>
-                <TextBlock Grid.Row="3" Margin="0,6,0,0">原始订单数量</TextBlock>
-                <TextBlock Grid.Row="3" Grid.Column="1" Margin="0,6,0,0" x:Name="OriginalOrdersCountText"></TextBlock>
-                <TextBlock Grid.Row="4" Margin="0,6,20,0">合并后订单数量</TextBlock>
-                <TextBlock Grid.Row="4" Grid.Column="1" Margin="0,6,0,0" x:Name="OrdersCountText"></TextBlock>
+                <TextBlock Grid.Row="2" Margin="0,6,0,0">产品数量</TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,6,0,0" x:Name="ProductsCountText"></TextBlock>
+                <TextBlock Grid.Row="3" Margin="0,6,0,0">买家数量</TextBlock>
+                <TextBlock Grid.Row="3" Grid.Column="1" Margin="0,6,0,0" x:Name="BuyersCountText"></TextBlock>
+                <TextBlock Grid.Row="4" Margin="0,6,0,0">原始订单数量</TextBlock>
+                <TextBlock Grid.Row="4" Grid.Column="1" Margin="0,6,0,0" x:Name="OriginalOrdersCountText"></TextBlock>
+                <TextBlock Grid.Row="5" Margin="0,6,20,0">合并后订单数量</TextBlock>
+                <TextBlock Grid.Row="5" Grid.Column="1" Margin="0,6,0,0" x:Name="OrdersCountText"></TextBlock>
             </Grid>
             <TreeView Grid.Row="1" Margin="30,30,30,0" HorizontalAlignment="Stretch" BorderThickness="0">
                 <TreeViewItem x:Name="BuyersTree" Header="买家" IsExpanded="True">

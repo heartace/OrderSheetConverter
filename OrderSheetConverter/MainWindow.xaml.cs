@@ -31,6 +31,8 @@ namespace Studio.DreamRoom.OrderSheetConverter
 
             this.Title = $"订单表格转换器 ({version})";
 
+            InsertedBuyerPicker.SelectedIndex = Properties.Settings.Default.LastSelectedInsertedBuyer;
+
             System.Windows.Forms.Application.EnableVisualStyles();
 
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -137,9 +139,18 @@ namespace Studio.DreamRoom.OrderSheetConverter
                 using (var p = new ExcelPackage())
                 {
                     if (sheetData != null) {
+                        Properties.Settings.Default.LastSelectedInsertedBuyer = InsertedBuyerPicker.SelectedIndex;
+                        Properties.Settings.Default.Save();
+
+                        var insertedBuyer = (InsertedBuyerPicker.SelectedItem as ComboBoxItem)?.Content.ToString();
+                        if (insertedBuyer == "无")
+                        {
+                            insertedBuyer = null;
+                        }
+
                         try
                         {
-                            SheetGenerator.Export((SheetData)sheetData, dialog.FileName, currentFilePath);
+                            SheetGenerator.Export((SheetData)sheetData, insertedBuyer, dialog.FileName, currentFilePath);
 
 
                             if (File.Exists(dialog.FileName))

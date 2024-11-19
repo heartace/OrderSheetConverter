@@ -16,11 +16,17 @@ namespace Studio.DreamRoom.OrderSheetConverter
 {
     internal class SheetGenerator
     {
-        internal static void Export(SheetData sheetData, string fileName, string sourceFileName)
+        internal static void Export(SheetData sheetData, string? insertedBuyer, string fileName, string sourceFileName)
         {
             using (var p = new ExcelPackage())
             {
                 var buyers = sheetData.Buyers;
+
+                if (insertedBuyer != null)
+                {
+                    buyers.Insert(0, insertedBuyer);
+                }
+
                 var products = sheetData.Products;
 
                 var ws = p.Workbook.Worksheets.Add("Main");
