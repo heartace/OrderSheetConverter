@@ -156,9 +156,21 @@ namespace Studio.DreamRoom.OrderSheetConverter
                     }
                 }
 
-                // center align the row & column headers
-                ws.Rows[1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                // vertical center align the first column
                 ws.Columns[1].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                // set global font and horizontal alignment
+                foreach (var cell in ws.Cells)
+                {
+                    cell.Style.Font.Name = "微软雅黑";
+                    cell.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                }
+
+                // set bold font weight for first two rows and columns
+                ws.Rows[1].Style.Font.Bold = true;
+                ws.Rows[2].Style.Font.Bold = true;
+                ws.Columns[1].Style.Font.Bold = true;
+                ws.Columns[2].Style.Font.Bold = true;
 
                 // set width for the first two columns
                 ws.Columns[1].Width = 25;
