@@ -7,7 +7,7 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>Studio.DreamRoom.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-    <Version>0.5.0.1</Version>
+    <Version>0.5.0.2</Version>
     <ApplicationIcon>appicon.ico</ApplicationIcon>
   </PropertyGroup>
 

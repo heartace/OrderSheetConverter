@@ -13,11 +13,31 @@ namespace Studio.DreamRoom.OrderSheetConverter
     {
         internal static SheetData Parse(DataTable table)
         {
+            const string SheetHeaderWeChatName  = "微信名称";
+            const string SheetHeaderProductName = "商品名称";
+            const string SheetHeaderSpec        = "规格";
+            const string SheetHeaderQuantity    = "数量";
+            const string SheetHeaderTotalPrice  = "商品总金额";
+
+            var headers = table.Rows[0];
+            var headerNames = new List<String>();
+
+            for (int i = 0; i < headers.ItemArray.Length; i++)
+            {
+                headerNames.Add(headers[i].ToString());
+            }
+
+            var colWeChatName = headerNames.IndexOf(SheetHeaderWeChatName);
+            var colProductName = headerNames.IndexOf(SheetHeaderProductName);
+            var colSpec = headerNames.IndexOf(SheetHeaderSpec);
+            var colQuantity = headerNames.IndexOf(SheetHeaderQuantity);
+            var colTotalPrice = headerNames.IndexOf(SheetHeaderTotalPrice);
+
             var buyers = new List<String>();
             for (int i = 1; i < table.Rows.Count; i++)
             {
                 var row = table.Rows[i];
-                var buyer = row[5].ToString();
+                var buyer = row[colWeChatName].ToString();
                 if (buyer != null && !buyers.Contains(buyer))
                 {
                     buyers.Add(buyer);
@@ -28,8 +48,8 @@ namespace Studio.DreamRoom.OrderSheetConverter
             for (int i = 1; i < table.Rows.Count; i++)
             {
                 var row = table.Rows[i];
-                var rawProductName = row[10].ToString();
-                var spec = row[12].ToString();
+                var rawProductName = row[colProductName].ToString();
+                var spec = row[colSpec].ToString();
 
                 if (rawProductName != null && spec != null)
                 {
@@ -53,9 +73,9 @@ namespace Studio.DreamRoom.OrderSheetConverter
                             products[productName][spec] = new List<Order>();
                         }
 
-                        var buyer = row[5].ToString();
-                        var rawQuantity = row[14].ToString();
-                        var rawTotalPrice = row[16].ToString();
+                        var buyer = row[colWeChatName].ToString();
+                        var rawQuantity = row[colQuantity].ToString();
+                        var rawTotalPrice = row[colTotalPrice].ToString();
 
                         if (buyer != null && rawQuantity != null && rawTotalPrice != null)
                         {
